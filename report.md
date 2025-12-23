@@ -30,6 +30,7 @@ Google Maps 的餐廳評論往往數量龐大，使用者只能先看到整體�
 2. **中文斷詞（jieba）**
    - 使用 jieba 進行分詞
    - 搭配停用詞表 `stopwords_zh.txt` 移除無意義詞彙
+   - 支援自訂詞庫 `user_dict.txt`，可加入餐點名稱或專有名詞
    - 產生 `processed_text`，以空白分隔詞彙
 
 3. **情緒標註（label_sentiment）**
@@ -48,9 +49,11 @@ Google Maps 的餐廳評論往往數量龐大，使用者只能先看到整體�
    - 產出每個主題的高權重詞彙
    - 用以解釋「評論在討論什麼」
 
-6. **關鍵詞分析**
-   - 針對正面與負面評論分別計算 TF-IDF
-   - 產出正/負面高權重關鍵詞
+6. **關鍵詞分析（差異化）**
+   - 正負評論放在同一個 TF-IDF 空間
+   - 計算「正面平均 TF-IDF - 負面平均 TF-IDF」的差異
+   - 正面取差異最大的詞、負面取差異最小的詞
+   - 目的：避免正負關鍵詞重複，強化可解讀性
 
 7. **餐廳分店輸出**
    - 依 `place_name` 分組
@@ -81,6 +84,11 @@ Google Maps 的餐廳評論往往數量龐大，使用者只能先看到整體�
 此外可透過以下方式查詢單一店家前三好與前三不好：
 ```
 python3 text_mining_project.py --input final_reviews_for_analysis.csv --output outputs --place-name "店名"
+```
+
+外部資料（與訓練資料不同的餐廳）使用獨立腳本：
+```
+python3 external_predict.py --test test.csv --top-k 3
 ```
 
 ## 六、結果解讀範例

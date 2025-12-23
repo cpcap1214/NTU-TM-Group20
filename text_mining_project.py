@@ -21,6 +21,12 @@ def _safe_import_jieba():
     return jieba
 
 
+def load_user_dict(jieba_module, path: str) -> None:
+    if not path or not os.path.exists(path):
+        return
+    jieba_module.load_userdict(path)
+
+
 def clean_text(text: str) -> str:
     if not isinstance(text, str):
         return ""
@@ -54,7 +60,7 @@ def tokenize(text: str, jieba_module, stopwords: set) -> str:
 def label_sentiment(rating: float) -> str:
     if pd.isna(rating):
         return "negative"
-    if rating > 4:
+    if rating >= 4:
         return "positive"
     return "negative"
 
@@ -84,6 +90,58 @@ def compute_keywords(texts: pd.Series, top_n: int = 30):
     terms = np.array(vectorizer.get_feature_names_out())
     top_idx = np.argsort(scores)[::-1][:top_n]
     return pd.DataFrame({"term": terms[top_idx], "score": scores[top_idx]})
+
+
+def compute_discriminative_keywords(
+    pos_texts: pd.Series, neg_texts: pd.Series, top_k: int
+):
+    from sklearn.feature_extraction.text import TfidfVectorizer
+
+    pos_texts = pos_texts.dropna()
+    neg_texts = neg_texts.dropna()
+    all_texts = pd.concat([pos_texts, neg_texts], ignore_index=True)
+
+    n_docs = len(all_texts)
+    if n_docs < 4:
+        min_df = 1
+        max_df = 1.0
+    else:
+        min_df = 3
+        max_df = 0.9
+
+    vectorizer = TfidfVectorizer(
+        token_pattern=r"(?u)\b\w+\b",
+        min_df=min_df,
+        max_df=max_df,
+    )
+
+    try:
+        tfidf_all = vectorizer.fit_transform(all_texts)
+    except ValueError:
+        empty = pd.DataFrame(columns=["term", "score"])
+        return empty, empty
+
+    terms = np.array(vectorizer.get_feature_names_out())
+    pos_n = len(pos_texts)
+    neg_n = len(neg_texts)
+
+    if pos_n == 0 or neg_n == 0:
+        empty = pd.DataFrame(columns=["term", "score"])
+        return empty, empty
+
+    pos_mean = np.asarray(tfidf_all[:pos_n].mean(axis=0)).ravel()
+    neg_mean = np.asarray(tfidf_all[pos_n : pos_n + neg_n].mean(axis=0)).ravel()
+    diff = pos_mean - neg_mean
+
+    pos_idx = np.argsort(diff)[::-1]
+    neg_idx = np.argsort(diff)
+
+    pos_terms = [(terms[i], diff[i]) for i in pos_idx if diff[i] > 0]
+    neg_terms = [(terms[i], -diff[i]) for i in neg_idx if diff[i] < 0]
+
+    pos_df = pd.DataFrame(pos_terms[:top_k], columns=["term", "score"])
+    neg_df = pd.DataFrame(neg_terms[:top_k], columns=["term", "score"])
+    return pos_df, neg_df
 
 
 def topic_model(texts: pd.Series, n_topics: int, n_top_terms: int):
@@ -148,18 +206,18 @@ def per_place_analysis(
 
         pos = group[group["sentiment_label"] == "positive"]
         neg = group[group["sentiment_label"] == "negative"]
-        if len(pos) > 0:
+        if len(pos) > 0 and len(neg) > 0:
+            pos_kw, neg_kw = compute_discriminative_keywords(
+                pos["processed_text"], neg["processed_text"], top_keywords
+            )
+        else:
             pos_kw = compute_keywords(pos["processed_text"], top_keywords)
-            if not pos_kw.empty:
-                pos_kw.to_csv(
-                    os.path.join(place_dir, "positive_top_keywords.csv"), index=False
-                )
-        if len(neg) > 0:
             neg_kw = compute_keywords(neg["processed_text"], top_keywords)
-            if not neg_kw.empty:
-                neg_kw.to_csv(
-                    os.path.join(place_dir, "negative_top_keywords.csv"), index=False
-                )
+
+        if not pos_kw.empty:
+            pos_kw.to_csv(os.path.join(place_dir, "positive_top_keywords.csv"), index=False)
+        if not neg_kw.empty:
+            neg_kw.to_csv(os.path.join(place_dir, "negative_top_keywords.csv"), index=False)
 
         if len(group) >= min_docs_for_topics:
             _, topics_df, _ = topic_model(group["processed_text"], n_topics, n_top_terms)
@@ -178,8 +236,13 @@ def place_top_keywords(df: pd.DataFrame, place_name: str, top_k: int):
     pos = target[target["sentiment_label"] == "positive"]
     neg = target[target["sentiment_label"] == "negative"]
 
-    pos_kw = compute_keywords(pos["processed_text"], top_k) if len(pos) > 0 else pd.DataFrame()
-    neg_kw = compute_keywords(neg["processed_text"], top_k) if len(neg) > 0 else pd.DataFrame()
+    if len(pos) > 0 and len(neg) > 0:
+        pos_kw, neg_kw = compute_discriminative_keywords(
+            pos["processed_text"], neg["processed_text"], top_k
+        )
+    else:
+        pos_kw = compute_keywords(pos["processed_text"], top_k) if len(pos) > 0 else pd.DataFrame()
+        neg_kw = compute_keywords(neg["processed_text"], top_k) if len(neg) > 0 else pd.DataFrame()
 
     print("place_name:", place_name)
     print("top_positive:")
@@ -228,11 +291,33 @@ def sentiment_model(texts: pd.Series, labels: pd.Series, model_type: str):
     return model, vectorizer, report, cm, (X_test, y_test)
 
 
+def fit_sentiment_model(texts: pd.Series, labels: pd.Series, model_type: str):
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.naive_bayes import MultinomialNB
+
+    vectorizer = TfidfVectorizer(
+        token_pattern=r"(?u)\b\w+\b",
+        min_df=3,
+        max_df=0.9,
+    )
+    X = vectorizer.fit_transform(texts)
+
+    if model_type == "nb":
+        model = MultinomialNB()
+    else:
+        model = LogisticRegression(max_iter=1000)
+
+    model.fit(X, labels)
+    return model, vectorizer
+
+
 def main():
     parser = argparse.ArgumentParser(description="Restaurant review text mining")
     parser.add_argument("--input", default="final_reviews_for_analysis.csv")
     parser.add_argument("--output", default="outputs")
     parser.add_argument("--stopwords", default="stopwords_zh.txt")
+    parser.add_argument("--user-dict", default="user_dict.txt")
     parser.add_argument("--model", choices=["nb", "logreg"], default="logreg")
     parser.add_argument("--topics", type=int, default=6)
     parser.add_argument("--top-terms", type=int, default=12)
@@ -251,6 +336,7 @@ def main():
 
     jieba = _safe_import_jieba()
     stopwords = load_stopwords(args.stopwords)
+    load_user_dict(jieba, args.user_dict)
 
     df["cleaned_text"] = df["review_text"].map(clean_text)
     df["processed_text"] = df["cleaned_text"].map(lambda x: tokenize(x, jieba, stopwords))

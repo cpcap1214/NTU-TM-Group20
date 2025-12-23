@@ -91,9 +91,33 @@
 一顆星
 一星
 
+# Generic negatives to reduce noise in top keywords
+不是
+客人
+店家
+店員
+什麼
+這樣
+還是
+還有
+沒有
+普通
+還不錯
+不錯
+一點
+只是
+有些
+可惜
+其他
+自己
+不過
+起來
+部分
+很多
+評論
+
 # English noise
 ok
 okay
 good
 nice
-

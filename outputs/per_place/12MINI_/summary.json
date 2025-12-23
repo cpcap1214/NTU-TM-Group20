@@ -3,8 +3,7 @@
   "rows": 20,
   "avg_rating": 3.2,
   "sentiment_distribution": {
-    "positive": 10,
-    "negative": 8,
-    "neutral": 2
+    "negative": 10,
+    "positive": 10
   }
 }

@@ -1,10 +1,9 @@
 {
   "place_name": "Sipping Food 義式廚房",
-  "rows": 20,
-  "avg_rating": 4.6,
+  "rows": 19,
+  "avg_rating": 4.578947368421052,
   "sentiment_distribution": {
-    "positive": 18,
-    "neutral": 1,
-    "negative": 1
+    "positive": 17,
+    "negative": 2
   }
 }

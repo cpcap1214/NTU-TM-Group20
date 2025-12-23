@@ -4,7 +4,6 @@
   "avg_rating": 3.75,
   "sentiment_distribution": {
     "positive": 13,
-    "neutral": 4,
-    "negative": 3
+    "negative": 7
   }
 }
