@@ -1,0 +1,9 @@
+{
+  "place_name": "Petit France 小法國餐館",
+  "rows": 20,
+  "avg_rating": 4.3,
+  "sentiment_distribution": {
+    "positive": 17,
+    "neutral": 3
+  }
+}

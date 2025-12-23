@@ -1,0 +1,10 @@
+{
+  "place_name": "THE DOOR樂多",
+  "rows": 20,
+  "avg_rating": 4.2,
+  "sentiment_distribution": {
+    "positive": 16,
+    "negative": 2,
+    "neutral": 2
+  }
+}

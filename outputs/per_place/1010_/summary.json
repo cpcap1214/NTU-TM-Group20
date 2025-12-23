@@ -1,0 +1,10 @@
+{
+  "place_name": "1010湘食堂 遠百信義店",
+  "rows": 20,
+  "avg_rating": 3.6,
+  "sentiment_distribution": {
+    "positive": 10,
+    "neutral": 7,
+    "negative": 3
+  }
+}

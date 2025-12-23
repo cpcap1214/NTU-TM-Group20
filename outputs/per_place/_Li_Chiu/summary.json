@@ -1,0 +1,10 @@
+{
+  "place_name": "立秋 Li Chiu",
+  "rows": 20,
+  "avg_rating": 4.4,
+  "sentiment_distribution": {
+    "positive": 16,
+    "neutral": 3,
+    "negative": 1
+  }
+}

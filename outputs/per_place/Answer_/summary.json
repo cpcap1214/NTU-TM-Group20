@@ -1,0 +1,9 @@
+{
+  "place_name": "Answer 安森",
+  "rows": 20,
+  "avg_rating": 4.8,
+  "sentiment_distribution": {
+    "positive": 19,
+    "negative": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "place_name": "BAR MOOD Taipei 吧沐",
+  "rows": 20,
+  "avg_rating": 4.55,
+  "sentiment_distribution": {
+    "positive": 18,
+    "neutral": 2
+  }
+}

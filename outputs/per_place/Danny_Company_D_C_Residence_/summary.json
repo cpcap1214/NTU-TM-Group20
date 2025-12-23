@@ -1,0 +1,10 @@
+{
+  "place_name": "Danny & Company（現為D&C Residence教父牛排餐飲）",
+  "rows": 20,
+  "avg_rating": 4.4,
+  "sentiment_distribution": {
+    "positive": 15,
+    "neutral": 4,
+    "negative": 1
+  }
+}

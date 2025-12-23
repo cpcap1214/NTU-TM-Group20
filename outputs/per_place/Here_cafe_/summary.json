@@ -1,0 +1,10 @@
+{
+  "place_name": "Here cafe’ 牛排、海鮮、漢堡、炸雞 （牛排、海鮮、炸物、下午茶吃到飽）",
+  "rows": 20,
+  "avg_rating": 4.7,
+  "sentiment_distribution": {
+    "positive": 18,
+    "neutral": 1,
+    "negative": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "place_name": "Woolloomooloo Fujin",
+  "rows": 20,
+  "avg_rating": 4.15,
+  "sentiment_distribution": {
+    "positive": 15,
+    "negative": 3,
+    "neutral": 2
+  }
+}

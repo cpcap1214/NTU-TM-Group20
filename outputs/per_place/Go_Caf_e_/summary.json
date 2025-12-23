@@ -1,0 +1,10 @@
+{
+  "place_name": "Go! Caf‘e 早午餐",
+  "rows": 20,
+  "avg_rating": 4.25,
+  "sentiment_distribution": {
+    "positive": 16,
+    "neutral": 3,
+    "negative": 1
+  }
+}

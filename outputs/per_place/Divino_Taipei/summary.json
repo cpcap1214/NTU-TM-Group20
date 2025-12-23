@@ -1,0 +1,9 @@
+{
+  "place_name": "Divino Taipei",
+  "rows": 20,
+  "avg_rating": 4.4,
+  "sentiment_distribution": {
+    "positive": 17,
+    "negative": 3
+  }
+}

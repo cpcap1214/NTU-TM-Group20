@@ -1,0 +1,10 @@
+{
+  "place_name": "TAMED FOX 大安店",
+  "rows": 20,
+  "avg_rating": 3.85,
+  "sentiment_distribution": {
+    "positive": 15,
+    "negative": 3,
+    "neutral": 2
+  }
+}

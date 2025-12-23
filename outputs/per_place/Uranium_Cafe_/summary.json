@@ -1,0 +1,9 @@
+{
+  "place_name": "Uranium Cafe 鈾咖啡餐酒館",
+  "rows": 20,
+  "avg_rating": 4.6,
+  "sentiment_distribution": {
+    "positive": 17,
+    "neutral": 3
+  }
+}

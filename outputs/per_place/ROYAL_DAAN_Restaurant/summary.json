@@ -1,0 +1,10 @@
+{
+  "place_name": "ROYAL DAAN Restaurant",
+  "rows": 20,
+  "avg_rating": 3.5,
+  "sentiment_distribution": {
+    "positive": 12,
+    "negative": 6,
+    "neutral": 2
+  }
+}

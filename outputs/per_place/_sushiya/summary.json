@@ -1,0 +1,10 @@
+{
+  "place_name": "壽司家sushiya",
+  "rows": 20,
+  "avg_rating": 4.4,
+  "sentiment_distribution": {
+    "positive": 18,
+    "negative": 1,
+    "neutral": 1
+  }
+}

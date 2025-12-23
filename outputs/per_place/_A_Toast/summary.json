@@ -1,0 +1,10 @@
+{
+  "place_name": "鱷吐司 A Toast",
+  "rows": 40,
+  "avg_rating": 4.225,
+  "sentiment_distribution": {
+    "positive": 33,
+    "neutral": 4,
+    "negative": 3
+  }
+}

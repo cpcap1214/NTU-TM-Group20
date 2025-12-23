@@ -1,0 +1,10 @@
+{
+  "place_name": "McCafé 咖啡-復興二店",
+  "rows": 9,
+  "avg_rating": 3.0,
+  "sentiment_distribution": {
+    "negative": 4,
+    "positive": 4,
+    "neutral": 1
+  }
+}

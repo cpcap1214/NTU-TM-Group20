@@ -1,0 +1,10 @@
+{
+  "place_name": "識食餐室 ZEST DINER",
+  "rows": 20,
+  "avg_rating": 4.25,
+  "sentiment_distribution": {
+    "positive": 15,
+    "neutral": 3,
+    "negative": 2
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "place_name": "Red Room Rendezvous 紅房餐酒館",
+  "rows": 20,
+  "avg_rating": 4.25,
+  "sentiment_distribution": {
+    "positive": 16,
+    "neutral": 2,
+    "negative": 2
+  }
+}

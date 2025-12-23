@@ -1,0 +1,10 @@
+{
+  "place_name": "Bánh Mi 越式法國麵包",
+  "rows": 20,
+  "avg_rating": 3.9,
+  "sentiment_distribution": {
+    "positive": 15,
+    "negative": 4,
+    "neutral": 1
+  }
+}

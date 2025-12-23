@@ -1,0 +1,10 @@
+{
+  "place_name": "遠東CAFÉ",
+  "rows": 20,
+  "avg_rating": 3.5,
+  "sentiment_distribution": {
+    "positive": 11,
+    "negative": 5,
+    "neutral": 4
+  }
+}

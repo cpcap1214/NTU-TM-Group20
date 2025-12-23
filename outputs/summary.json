@@ -1,0 +1,10 @@
+{
+  "rows": 23810,
+  "non_empty_text": 23802,
+  "label_distribution": {
+    "positive": 13046,
+    "negative": 10756
+  },
+  "prediction_consistency": 0.8330392403999664,
+  "output_dir": "outputs"
+}

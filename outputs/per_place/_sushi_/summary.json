@@ -1,0 +1,10 @@
+{
+  "place_name": "林居sushi日本料理",
+  "rows": 20,
+  "avg_rating": 4.3,
+  "sentiment_distribution": {
+    "positive": 16,
+    "neutral": 3,
+    "negative": 1
+  }
+}

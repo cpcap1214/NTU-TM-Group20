@@ -1,0 +1,9 @@
+{
+  "place_name": "CAFE ACME mini｜Taipei 101",
+  "rows": 20,
+  "avg_rating": 4.5,
+  "sentiment_distribution": {
+    "positive": 18,
+    "negative": 2
+  }
+}

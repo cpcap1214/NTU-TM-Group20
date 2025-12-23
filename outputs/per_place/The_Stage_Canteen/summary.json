@@ -1,0 +1,9 @@
+{
+  "place_name": "The Stage Canteen",
+  "rows": 20,
+  "avg_rating": 4.75,
+  "sentiment_distribution": {
+    "positive": 19,
+    "neutral": 1
+  }
+}

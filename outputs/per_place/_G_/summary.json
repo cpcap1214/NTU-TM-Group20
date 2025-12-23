@@ -1,0 +1,10 @@
+{
+  "place_name": "新台灣G王",
+  "rows": 20,
+  "avg_rating": 4.1,
+  "sentiment_distribution": {
+    "positive": 16,
+    "negative": 3,
+    "neutral": 1
+  }
+}
